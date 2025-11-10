@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className="nav-bar">
             <NavLink
               to="/upcoming-events"
-              className="hidden md:block text-gray-700 hover:text-blue-600 transition-colors dark:text-white"
+              className="hidden md:block text-gray-200 hover:text-blue-600 transition-colors dark:text-white"
             >
               Upcoming Events
             </NavLink>

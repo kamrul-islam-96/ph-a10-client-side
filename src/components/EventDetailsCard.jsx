@@ -17,41 +17,53 @@ export default function EventDetailsCard({ eventDetail }) {
   } = eventDetail;
 
   const handleJoinEvent = async () => {
-    
     if (!user) {
-      toast.error("TO join this event you have to log in first");
+      toast.error("To join this event you have to log in first");
       return;
     }
 
-    const response = await fetch("http://localhost:3000/joined-events", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        eventType,
-        thumbnail,
-        location,
-        eventDate,
-        joinedBy: user.email,
-      }),
-    });
+    try {
+      const joinedRes = await fetch(
+        `http://localhost:3000/joined-events?userEmail=${user.email}`
+      );
+      const joinedEvents = await joinedRes.json();
 
-    const data = await response.json();
+      const alreadyJoined = joinedEvents.some((e) => e.title === title); 
 
-    if (data) {
-      toast.success("Event Joined Successfully");
-    } else
-      (err) => {
-        toast.error("There is some issue occured");
-      };
+      if (alreadyJoined) {
+        toast.error("You have already joined this event");
+        return;
+      }
+
+      const response = await fetch("http://localhost:3000/joined-events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          description,
+          eventType,
+          thumbnail,
+          location,
+          eventDate,
+          joinedBy: user.email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data) {
+        toast.success("Event Joined Successfully");
+      } else {
+        toast.error("There was some issue joining the event");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    }
   };
 
   return (
     <div className="flex flex-col md:max-h-[512px] md:mx-0 mx-2 md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 w-full">
-      {/* Left: Image */}
       <div className="md:w-1/2 relative">
         <img
           src={thumbnail}
@@ -63,7 +75,6 @@ export default function EventDetailsCard({ eventDetail }) {
         </span>
       </div>
 
-      {/* Right: Details */}
       <div className="md:w-1/2 md:p-8 p-4 flex flex-col justify-center">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-3">
           {title}

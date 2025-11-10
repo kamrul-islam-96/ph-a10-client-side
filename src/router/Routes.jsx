@@ -9,8 +9,8 @@ import ManageEvent from "../pages/ManageEvent/ManageEvent";
 import UpComingEvents from "../pages/UpcomingEvents/UpComingEvents";
 import { Toaster } from "react-hot-toast";
 import EventDetails from "../pages/EventDetails/EventDetails";
-import PrivateRoute from "./PrivateRoute";
 import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
+import EventUpdate from "../pages/EventUpdate/EventUpdate";
 
 
 export default function Routes() {
@@ -53,6 +53,10 @@ export default function Routes() {
                 path: '/event-details/:id',
                 element: <EventDetails />,
                 loader: ({params}) => fetch(`http://localhost:3000/events/${params.id}`)
+            },
+            {
+                path: '/event-update/:id',
+                element: <EventUpdate/>,
             },
         ]
     }
