@@ -10,7 +10,7 @@ import {
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-300 mt-10 border-t border-blue-200 dark:border-gray-700">
+    <footer className="bg-linear-to-b from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 text-gray-800 dark:text-gray-300 mt-10 border-t border-blue-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-8">
         {/* 1️⃣ Brand Section */}
         <div>
@@ -79,7 +79,7 @@ const Footer = () => {
             </a>
             <a
               href="#"
-              className="p-2 rounded-full bg-gradient-to-tr from-pink-500 to-orange-400 text-white hover:opacity-90 transition"
+              className="p-2 rounded-full bg-linear-to-tr from-pink-500 to-orange-400 text-white hover:opacity-90 transition"
             >
               <FaInstagram size={18} />
             </a>

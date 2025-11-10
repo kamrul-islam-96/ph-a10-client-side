@@ -5,8 +5,12 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import CreateEvent from "../pages/CreateEvent/CreateEvent";
 import ManageEvent from "../pages/ManageEvent/ManageEvent";
-import JoinEvents from "../pages/JoinEvents/JoinEvents";
+
 import UpComingEvents from "../pages/UpcomingEvents/UpComingEvents";
+import { Toaster } from "react-hot-toast";
+import EventDetails from "../pages/EventDetails/EventDetails";
+import PrivateRoute from "./PrivateRoute";
+import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 
 
 export default function Routes() {
@@ -29,7 +33,8 @@ export default function Routes() {
             },
             {
                 path: '/upcoming-events',
-                element: <UpComingEvents />
+                element: <UpComingEvents />,
+                loader: () => fetch('http://localhost:3000/events')
             },
             {
                 path: '/create-event',
@@ -40,14 +45,23 @@ export default function Routes() {
                 element: <ManageEvent />
             },
             {
-                path: '/join-events',
-                element: <JoinEvents />
+                path: '/joined-events',
+                element: <JoinedEvents />,
+                loader: () => fetch('http://localhost:3000/joined-events')
+            },
+            {
+                path: '/event-details/:id',
+                element: <EventDetails />,
+                loader: ({params}) => fetch(`http://localhost:3000/events/${params.id}`)
             },
         ]
     }
 ])
 
   return (
-    <RouterProvider router={router} />
+   <>
+     <RouterProvider router={router} />
+    <Toaster position="top-center" reverseOrder={false} />
+   </>
   )
 }

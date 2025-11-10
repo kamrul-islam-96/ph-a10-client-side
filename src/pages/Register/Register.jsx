@@ -16,12 +16,32 @@ const Register = () => {
     const password = event.target.password.value;
 
     toast.loading("Creating user...", { id: "create-user" });
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters!");
+      return;
+    }
+
+    if (!uppercaseRegex.test(password)) {
+      toast.error("Password must contain at least one uppercase letter!");
+      return;
+    }
+
+    if (!lowercaseRegex.test(password)) {
+      toast.error("Password must contain at least one lowercase letter!");
+      return;
+    }
+
+    toast/*  */.success("Registration successful! 🎉");
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
         updateUserProfile(displayName, photoURL);
         toast.success("User created successfully!", { id: "create-user" });
+        navigate(location.state || "/login");
       })
       .catch((error) => {
         console.log(error);
@@ -56,6 +76,7 @@ const Register = () => {
               name="displayName"
               className="input rounded-full focus:border-0 focus:outline-gray-200"
               placeholder="Name"
+              required
             />
 
             <label className="label">PhotoURL</label>
@@ -64,6 +85,7 @@ const Register = () => {
               name="photoURL"
               className="input rounded-full focus:border-0 focus:outline-gray-200"
               placeholder="Photo URL"
+              required
             />
             {/* email field */}
             <label className="label">Email</label>
@@ -72,6 +94,7 @@ const Register = () => {
               name="email"
               className="input rounded-full focus:border-0 focus:outline-gray-200"
               placeholder="Email"
+              required
             />
             {/* password field */}
             <label className="label">Password</label>
@@ -80,6 +103,7 @@ const Register = () => {
               name="password"
               className="input rounded-full focus:border-0 focus:outline-gray-200"
               placeholder="Password"
+              required
             />
             <div>
               <a className="link link-hover">Forgot password?</a>
