@@ -1,11 +1,14 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
+import { FiEyeOff } from "react-icons/fi";
+import { FaEye } from "react-icons/fa";
 
 const Register = () => {
   const { createUser, updateUserProfile, signInWithGoogle } = use(AuthContext);
+  const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate();
 
   const handleRegister = (event) => {
@@ -34,7 +37,8 @@ const Register = () => {
       return;
     }
 
-    toast/*  */.success("Registration successful! 🎉");
+    toast /*  */
+      .success("Registration successful! 🎉");
 
     createUser(email, password)
       .then((result) => {
@@ -69,7 +73,6 @@ const Register = () => {
         <h1 className="text-3xl font-bold text-center">Register</h1>
         <form onSubmit={handleRegister}>
           <fieldset className="fieldset">
-            {/* email field */}
             <label className="label">Name</label>
             <input
               type="text"
@@ -87,7 +90,7 @@ const Register = () => {
               placeholder="Photo URL"
               required
             />
-            {/* email field */}
+
             <label className="label">Email</label>
             <input
               type="email"
@@ -96,15 +99,27 @@ const Register = () => {
               placeholder="Email"
               required
             />
-            {/* password field */}
+
             <label className="label">Password</label>
-            <input
-              type="password"
-              name="password"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Password"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="input rounded-full focus:border-0 focus:outline-gray-200 pr-12"
+                placeholder="Password"
+              />
+              {showPassword ? (
+                <FiEyeOff
+                  onClick={() => setShowPassword(false)}
+                  className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700"
+                />
+              ) : (
+                <FaEye
+                  onClick={() => setShowPassword(true)}
+                  className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700"
+                />
+              )}
+            </div>
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>

@@ -30,16 +30,15 @@ const Navbar = () => {
   return (
     <nav className=" bg-linear-to-b from-blue-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Navbar main row */}
         <div className="flex justify-between items-center h-16">
           {/* ---------- Left: Logo + Events ---------- */}
           <div className="flex items-center space-x-8">
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">E</span>
+                <span className="text-white font-bold text-lg">SE</span>
               </div>
               <span className="font-bold text-xl text-gray-900 dark:text-white">
-                EventHub
+                SocialEventHub
               </span>
             </Link>
           </div>

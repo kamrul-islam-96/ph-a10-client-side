@@ -14,6 +14,7 @@ export default function EventDetailsCard({ eventDetail }) {
     location,
     eventDate,
     createdBy,
+    _id,
   } = eventDetail;
 
   const handleJoinEvent = async () => {
@@ -28,7 +29,7 @@ export default function EventDetailsCard({ eventDetail }) {
       );
       const joinedEvents = await joinedRes.json();
 
-      const alreadyJoined = joinedEvents.some((e) => e.title === title); 
+      const alreadyJoined = joinedEvents.some((e) => e.eventId === _id);
 
       if (alreadyJoined) {
         toast.error("You have already joined this event");
@@ -39,6 +40,7 @@ export default function EventDetailsCard({ eventDetail }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          eventId: _id,
           title,
           description,
           eventType,
