@@ -35,10 +35,11 @@ const ManageEvent = () => {
 
         const data = await response.json();
         setEvents(data);
-        setLoading(false);
       } catch (err) {
         console.error("Error fetching events:", err);
         toast.error("Failed to load your events");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -58,18 +59,27 @@ const ManageEvent = () => {
       });
 
       if (result.isConfirmed) {
+        const token = await user.getIdToken();
+
         const res = await fetch(
           `http://localhost:3000/events/${id}?email=${user.email}`,
           {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
+
+        if (!res.ok) {
+          const errorData = await res.json();
+          throw new Error(errorData.message || "Failed to delete event");
+        }
 
         const data = await res.json();
 
         if (data.deletedCount > 0) {
-          // Remove deleted event from state
           setEvents((prevEvents) =>
             prevEvents.filter((event) => event._id !== id)
           );
@@ -139,7 +149,11 @@ const ManageEvent = () => {
                   <span>
                     <FaCalendar />
                   </span>
-                  {event.eventDate}
+                  {new Date(event.eventDate).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </p>
 
                 <div className="flex justify-between mt-4">
