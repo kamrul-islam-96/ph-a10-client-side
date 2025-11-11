@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
 const EventUpdate = () => {
-  const { id } = useParams(); // get event ID from URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
   const [formData, setFormData] = useState(null);
 
@@ -36,7 +36,7 @@ const EventUpdate = () => {
     }
   };
 
-  if (!formData) return <p className="text-center mt-6">Loading event data...</p>;
+  if (!formData) return <div className="text-center"><span className="loading loading-bars loading-xl"></span></div>;
 
   return (
     <div className="max-w-xl mx-auto p-6">
@@ -90,7 +90,7 @@ const EventUpdate = () => {
         />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
         >
           Save Changes
         </button>

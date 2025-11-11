@@ -24,8 +24,14 @@ export default function EventDetailsCard({ eventDetail }) {
     }
 
     try {
+      const token = await user.getIdToken();
       const joinedRes = await fetch(
-        `http://localhost:3000/joined-events?userEmail=${user.email}`
+        `http://localhost:3000/joined-events?userEmail=${user.email}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const joinedEvents = await joinedRes.json();
 
@@ -38,7 +44,10 @@ export default function EventDetailsCard({ eventDetail }) {
 
       const response = await fetch("http://localhost:3000/joined-events", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           eventId: _id,
           title,

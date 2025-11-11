@@ -47,7 +47,6 @@ export default function Routes() {
             {
                 path: '/joined-events',
                 element: <JoinedEvents />,
-                loader: () => fetch('http://localhost:3000/joined-events')
             },
             {
                 path: '/event-details/:id',

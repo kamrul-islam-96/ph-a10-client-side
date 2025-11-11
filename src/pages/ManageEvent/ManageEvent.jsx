@@ -8,14 +8,41 @@ import Swal from "sweetalert2";
 const ManageEvent = () => {
   const { user } = use(AuthContext);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user?.email) {
-      fetch(`http://localhost:3000/my-events/${user.email}`)
-        .then((res) => res.json())
-        .then((data) => setEvents(data))
-        .catch((err) => console.error(err));
-    }
+    const fetchMyEvents = async () => {
+      if (!user?.email) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const token = await user.getIdToken();
+
+        const response = await fetch(
+          `http://localhost:3000/my-events/${user.email}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch my events");
+        }
+
+        const data = await response.json();
+        setEvents(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching events:", err);
+        toast.error("Failed to load your events");
+      }
+    };
+
+    fetchMyEvents();
   }, [user]);
 
   const handleDelete = async (id) => {
@@ -61,6 +88,13 @@ const ManageEvent = () => {
       Swal.fire("Error!", "Something went wrong.", "error");
     }
   };
+
+  if (loading)
+    return (
+      <div className="text-center">
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
 
   return (
     <div className="max-w-6xl mx-auto">
