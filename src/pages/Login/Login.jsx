@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 import { FiEyeOff } from "react-icons/fi";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle } = use(AuthContext);
+  const { signInUser, signInWithGoogle, resetPassword } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ const Login = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    console.log(email, password);
     signInUser(email, password)
       .then((result) => {
         toast.success("Log in successfull");
@@ -26,6 +26,24 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error("invalid credential");
+      });
+  };
+
+  const handleForgotPassword = (event) => {
+    event.preventDefault();
+    const email = event.target.form.email.value; 
+
+    if (!email) {
+      toast.error("Please enter your email first");
+      return;
+    }
+
+    resetPassword(email)
+      .then(() => {
+        toast.success("Password reset email sent! Check your Gmail.");
+      })
+      .catch((error) => {
+        toast.error("Failed to send reset email");
       });
   };
 
@@ -63,15 +81,25 @@ const Login = () => {
                 placeholder="Password"
               />
               {showPassword ? (
-                <FiEyeOff onClick={()=> setShowPassword(false)} className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700" />
+                <FiEyeOff
+                  onClick={() => setShowPassword(false)}
+                  className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700"
+                />
               ) : (
-                <FaEye onClick={()=> setShowPassword(true)} className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700" />
+                <FaEye
+                  onClick={() => setShowPassword(true)}
+                  className="absolute right-8 top-4 cursor-pointer z-10 text-gray-500 hover:text-gray-700"
+                />
               )}
             </div>
 
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="link link-hover text-blue-500 hover:text-blue-800"
+            >
+              Forgot password?
+            </button>
             <button className="btn text-white mt-4 rounded-full bg-linear-to-r from-pink-500 to-red-600">
               Login
             </button>

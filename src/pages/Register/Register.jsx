@@ -1,5 +1,5 @@
 import React, { use, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa6";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/AuthContext";
@@ -7,9 +7,10 @@ import { FiEyeOff } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
 
 const Register = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } = use(AuthContext);
+  const { createUser, updateUserProfile, signInWithGoogle, signOutUser } = use(AuthContext);
   const [showPassword, setShowPassword] = useState(false)
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -37,18 +38,17 @@ const Register = () => {
       return;
     }
 
-    toast /*  */
-      .success("Registration successful! 🎉");
+    toast.success("Registration successful! 🎉");
 
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
+        signOutUser()
         updateUserProfile(displayName, photoURL);
         toast.success("User created successfully!", { id: "create-user" });
         navigate(location.state || "/login");
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.message, { id: "create-user" });
       });
   };
