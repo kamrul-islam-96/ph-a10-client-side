@@ -101,7 +101,7 @@ const ManageEvent = () => {
 
   if (loading)
     return (
-      <div className="text-center">
+      <div>
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );
@@ -138,7 +138,9 @@ const ManageEvent = () => {
                 <h3 className="text-xl font-semibold mb-2 dark:text-gray-300">
                   {event.title}
                 </h3>
-                <p className="text-gray-600 mb-2 dark:text-gray-300">{event.description}</p>
+                <p className="text-gray-600 mb-2 dark:text-gray-300">
+                  {event.description}
+                </p>
                 <p className="text-sm text-gray-500 mb-1 flex items-center gap-2">
                   <span>
                     <FaLocationArrow />

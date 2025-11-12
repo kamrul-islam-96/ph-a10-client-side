@@ -10,7 +10,7 @@ export default function UpComingEvents() {
   const [searchTerm, setSearchTerm] = useState("");
   const [eventTypes, setEventTypes] = useState(["All"]);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(""); 
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     if (events && events.length > 0) {
@@ -21,7 +21,7 @@ export default function UpComingEvents() {
 
   const fetchFilteredEvents = async () => {
     setLoading(true);
-    setErrorMsg(""); 
+    setErrorMsg("");
     try {
       const params = new URLSearchParams();
       if (selectedEventType !== "All") {
@@ -40,7 +40,14 @@ export default function UpComingEvents() {
       }
 
       const data = await res.json();
-      setFilteredEvents(data);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // start of today
+      const upcomingEvents = data.filter((event) => {
+        const eventDate = new Date(event.eventDate);
+        return eventDate >= today;
+      });
+
+      setFilteredEvents(upcomingEvents);
     } catch (error) {
       setErrorMsg(error.message);
       setFilteredEvents([]);
@@ -66,7 +73,7 @@ export default function UpComingEvents() {
 
   if (!events) {
     return (
-      <div className="text-center py-8">
+      <div>
         <span className="loading loading-bars loading-xl"></span>
       </div>
     );

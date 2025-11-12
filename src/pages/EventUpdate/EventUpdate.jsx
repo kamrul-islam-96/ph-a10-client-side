@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import toast from "react-hot-toast";
 
 const EventUpdate = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState(null);
 
@@ -30,16 +30,21 @@ const EventUpdate = () => {
     const data = await res.json();
     if (data.modifiedCount > 0) {
       toast.success("Event updated successfully!");
-      navigate("/manage-event"); 
+      navigate("/manage-event");
     } else {
       toast.error("Update failed!");
     }
   };
 
-  if (!formData) return <div className="text-center"><span className="loading loading-bars loading-xl"></span></div>;
+  if (!formData)
+    return (
+      <div>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
 
   return (
-    <div className="max-w-xl mx-auto p-6">
+    <div className="w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-4">Update Event</h2>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input

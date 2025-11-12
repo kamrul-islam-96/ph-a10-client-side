@@ -3,7 +3,7 @@ import JoinedEventsCard from "../../components/JoinedEventsCard";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function JoinedEvents() {
-  const { user } = use(AuthContext)
+  const { user } = use(AuthContext);
   const [joinedEventsData, setJoinedEventsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,8 +33,7 @@ export default function JoinedEvents() {
         }
 
         const data = await response.json();
-        setJoinedEventsData(data)
-
+        setJoinedEventsData(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -45,7 +44,12 @@ export default function JoinedEvents() {
     fetchJoinedEvents();
   }, [user]);
 
-  if (loading) return <div className="text-center"><span className="loading loading-bars loading-xl"></span></div>;
+  if (loading)
+    return (
+      <div>
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
   if (error)
     return <div className="text-center text-red-500">Error: {error}</div>;
 

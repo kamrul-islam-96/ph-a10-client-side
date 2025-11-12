@@ -5,12 +5,14 @@ import Footer from '../components/Footer'
 
 export default function () {
   return (
-    <div>
-        <Navbar />
-        <div className='mt-10'>
-          <Outlet />
-        </div>
-        <Footer />
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+
+      <main className="grow mt-8 w-full flex items-center justify-center">
+        <Outlet />
+      </main>
+
+      <Footer />
     </div>
   )
 }

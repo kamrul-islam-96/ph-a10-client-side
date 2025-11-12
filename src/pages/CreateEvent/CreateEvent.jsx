@@ -81,78 +81,80 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+    <div>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center">
         Create Event
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        />
+      <div className="max-w-3xl mx-auto mt-6 p-6 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full border px-3 py-2 rounded"
+          />
 
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        ></textarea>
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full border px-3 py-2 rounded"
+          ></textarea>
 
-        <select
-          value={eventType}
-          onChange={(e) => setEventType(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        >
-          <option className="dark:text-black" value="">
-            Select Event Type
-          </option>
-          <option className="dark:text-black" value="Cleanup">
-            Cleanup
-          </option>
-          <option className="dark:text-black" value="Plantation">
-            Plantation
-          </option>
-          <option className="dark:text-black" value="Donation">
-            Donation
-          </option>
-        </select>
+          <select
+            value={eventType}
+            onChange={(e) => setEventType(e.target.value)}
+            className="w-full border px-3 py-2 rounded"
+          >
+            <option className="dark:text-black" value="">
+              Select Event Type
+            </option>
+            <option className="dark:text-black" value="Cleanup">
+              Cleanup
+            </option>
+            <option className="dark:text-black" value="Plantation">
+              Plantation
+            </option>
+            <option className="dark:text-black" value="Donation">
+              Donation
+            </option>
+          </select>
 
-        <input
-          type="text"
-          placeholder="Thumbnail Image URL"
-          value={thumbnail}
-          onChange={(e) => setThumbnail(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        />
+          <input
+            type="text"
+            placeholder="Thumbnail Image URL"
+            value={thumbnail}
+            onChange={(e) => setThumbnail(e.target.value)}
+            className="w-full border px-3 py-2 rounded"
+          />
 
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="w-full border px-3 py-2 rounded"
-        />
+          <input
+            type="text"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full border px-3 py-2 rounded"
+          />
 
-        <DatePicker
-          selected={eventDate}
-          onChange={(date) => setEventDate(date)}
-          minDate={new Date()}
-          showTimeSelect
-          dateFormat="Pp"
-          placeholderText="Select Event Date"
-          className="w-full border px-3 py-2 rounded"
-        />
+          <DatePicker
+            selected={eventDate}
+            onChange={(date) => setEventDate(date)}
+            minDate={new Date()}
+            showTimeSelect
+            dateFormat="Pp"
+            placeholderText="Select Event Date"
+            className="w-full border px-3 py-2 rounded"
+          />
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
-        >
-          Create Event
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+          >
+            Create Event
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
