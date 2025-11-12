@@ -121,7 +121,7 @@ const ManageEvent = () => {
           {events.map((event) => (
             <div
               key={event._id}
-              className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden md:mx-0 mx-2"
+              className="bg-white dark:bg-blue-950 rounded-2xl shadow-md border border-gray-200 overflow-hidden md:mx-0 mx-2"
             >
               <div className="relative">
                 <img
@@ -135,10 +135,10 @@ const ManageEvent = () => {
               </div>
 
               <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2 dark:text-blue-950">
+                <h3 className="text-xl font-semibold mb-2 dark:text-gray-300">
                   {event.title}
                 </h3>
-                <p className="text-gray-600 mb-2">{event.description}</p>
+                <p className="text-gray-600 mb-2 dark:text-gray-300">{event.description}</p>
                 <p className="text-sm text-gray-500 mb-1 flex items-center gap-2">
                   <span>
                     <FaLocationArrow />

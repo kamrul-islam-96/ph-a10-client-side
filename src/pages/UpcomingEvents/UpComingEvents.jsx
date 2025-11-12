@@ -4,11 +4,17 @@ import EventCard from "../../components/EventCard";
 export default function UpComingEvents() {
   const events = useLoaderData();
 
+  if (!events) {
+    return (
+      <div className="text-center">
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto ">
-      <h2 className="text-3xl font-bold mb-6 text-center">
-        Up Coming Events
-      </h2>
+      <h2 className="text-3xl font-bold mb-6 text-center">Up Coming Events</h2>
       {events.length === 0 ? (
         <p className="text-center text-gray-500">
           There is no events available yet.

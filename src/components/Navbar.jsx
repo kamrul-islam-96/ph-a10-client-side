@@ -43,7 +43,7 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <div className="nav-bar">
+          <div className="nav-bar nav-extra">
             <NavLink
               to="/upcoming-events"
               className="hidden md:block text-gray-200 hover:text-blue-600 transition-colors dark:text-white"

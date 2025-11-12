@@ -11,6 +11,7 @@ import { Toaster } from "react-hot-toast";
 import EventDetails from "../pages/EventDetails/EventDetails";
 import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 import EventUpdate from "../pages/EventUpdate/EventUpdate";
+import PrivateRoute from "./PrivateRoute";
 
 
 export default function Routes() {
@@ -38,15 +39,15 @@ export default function Routes() {
             },
             {
                 path: '/create-event',
-                element: <CreateEvent />
+                element: <PrivateRoute><CreateEvent /></PrivateRoute>,
             },
             {
                 path: '/manage-event',
-                element: <ManageEvent />
+                element: <PrivateRoute><ManageEvent /></PrivateRoute>,
             },
             {
                 path: '/joined-events',
-                element: <JoinedEvents />,
+                element: <PrivateRoute><JoinedEvents /></PrivateRoute>,
             },
             {
                 path: '/event-details/:id',

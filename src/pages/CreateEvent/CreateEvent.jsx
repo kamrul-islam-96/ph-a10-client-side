@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function CreateEvent() {
   const [title, setTitle] = useState("");
@@ -12,10 +14,22 @@ export default function CreateEvent() {
   const [eventDate, setEventDate] = useState(null);
   const [createdBy, setCreatedBy] = useState("");
 
+  const Navigate = useNavigate();
+  const Location = useLocation();
+
+  const { user } = use(AuthContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !eventType || !thumbnail || !location || !eventDate || !createdBy) {
+    if (
+      !title ||
+      !description ||
+      !eventType ||
+      !thumbnail ||
+      !location ||
+      !eventDate
+    ) {
       toast.error("Please fill all fields!");
       return;
     }
@@ -32,13 +46,17 @@ export default function CreateEvent() {
       thumbnail,
       location,
       eventDate,
-      createdBy,
+      createdBy: user.email,
     };
 
     try {
+      const token = await user.getIdToken();
       const res = await fetch("http://localhost:3000/events", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(newEvent),
       });
 
@@ -46,6 +64,7 @@ export default function CreateEvent() {
 
       if (res.ok) {
         toast.success("Event created successfully! 🎉");
+        Navigate(Location.state || "/upcoming-events");
         setTitle("");
         setDescription("");
         setEventType("");
@@ -63,7 +82,9 @@ export default function CreateEvent() {
 
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">Create Event</h2>
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100">
+        Create Event
+      </h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -85,10 +106,18 @@ export default function CreateEvent() {
           onChange={(e) => setEventType(e.target.value)}
           className="w-full border px-3 py-2 rounded"
         >
-          <option value="">Select Event Type</option>
-          <option value="Cleanup">Cleanup</option>
-          <option value="Plantation">Plantation</option>
-          <option value="Donation">Donation</option>
+          <option className="dark:text-black" value="">
+            Select Event Type
+          </option>
+          <option className="dark:text-black" value="Cleanup">
+            Cleanup
+          </option>
+          <option className="dark:text-black" value="Plantation">
+            Plantation
+          </option>
+          <option className="dark:text-black" value="Donation">
+            Donation
+          </option>
         </select>
 
         <input
@@ -107,22 +136,13 @@ export default function CreateEvent() {
           className="w-full border px-3 py-2 rounded"
         />
 
-
         <DatePicker
           selected={eventDate}
           onChange={(date) => setEventDate(date)}
-          minDate={new Date()} 
+          minDate={new Date()}
           showTimeSelect
           dateFormat="Pp"
           placeholderText="Select Event Date"
-          className="w-full border px-3 py-2 rounded"
-        />
-
-        <input
-          type="email"
-          placeholder="Created By (Email)"
-          value={createdBy}
-          onChange={(e) => setCreatedBy(e.target.value)}
           className="w-full border px-3 py-2 rounded"
         />
 

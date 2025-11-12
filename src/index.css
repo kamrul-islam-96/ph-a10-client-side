@@ -18,6 +18,10 @@
   color: #111;
 }
 
+.nav-extra a:hover {
+  color: gray;
+}
+
 .nav-bar a::after {
   content: "";
   position: absolute;
