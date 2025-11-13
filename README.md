@@ -1,16 +1,17 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Social Development Events Platform
+Live Site: https://a10-social-events.netlify.app/
+A community-driven event management platform where users can create, join, and track local social service events (e.g., road cleaning, tree plantation, community drives) in their area.
 
-Currently, two official plugins are available:
+🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Create Events – Users can organize new social service events with title, location, date, description, and image.
+Join Events – One-click join with real-time participant count.
+Event Dashboard – View all upcoming, ongoing, and past events in your locality.
+User Authentication – Secure login/signup using Firebase Authentication (Email/Password & Google).
+Responsive Design – Fully mobile-friendly UI built with React + Tailwind CSS.
+Real-time Updates – Powered by Firebase Firestore for live event data.
+Map Integration – Events pinned on an interactive map (Leaflet.js).
+Profile Section – Track your created/joined events and contribution history.
+Search & Filter – Find events by location, date, or type.
+Notifications – Get alerts for upcoming joined events.
