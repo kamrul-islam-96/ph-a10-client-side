@@ -48,9 +48,13 @@ const EventUpdate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const token = await user.getIdToken();
     const res = await fetch(`https://ph-a10-eventhub.vercel.app/events/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(formData),
     });
 
@@ -116,7 +120,7 @@ const EventUpdate = () => {
         <input
           type="date"
           name="eventDate"
-          value={formData.eventDate}
+          value={formData.eventDate?.split("T")[0] || ""}
           onChange={handleChange}
           className="border p-2 rounded"
         />
