@@ -8,7 +8,7 @@ const EventUpdate = () => {
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/events/${id}`)
+    fetch(`https://ph-a10-eventhub.vercel.app/events/${id}`)
       .then((res) => res.json())
       .then((data) => setFormData(data))
       .catch((err) => console.error(err));
@@ -21,7 +21,7 @@ const EventUpdate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`http://localhost:3000/events/${id}`, {
+    const res = await fetch(`https://ph-a10-eventhub.vercel.app/events/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

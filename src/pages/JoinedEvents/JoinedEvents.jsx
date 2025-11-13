@@ -20,7 +20,7 @@ export default function JoinedEvents() {
         const token = await user.getIdToken();
 
         const response = await fetch(
-          `http://localhost:3000/joined-events?userEmail=${user.email}`,
+          `https://ph-a10-eventhub.vercel.app/joined-events?userEmail=${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

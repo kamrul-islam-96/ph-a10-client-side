@@ -51,7 +51,7 @@ export default function CreateEvent() {
 
     try {
       const token = await user.getIdToken();
-      const res = await fetch("http://localhost:3000/events", {
+      const res = await fetch("https://ph-a10-eventhub.vercel.app/events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

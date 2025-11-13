@@ -21,7 +21,7 @@ const ManageEvent = () => {
         const token = await user.getIdToken();
 
         const response = await fetch(
-          `http://localhost:3000/my-events/${user.email}`,
+          `https://ph-a10-eventhub.vercel.app/my-events/${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const ManageEvent = () => {
         const token = await user.getIdToken();
 
         const res = await fetch(
-          `http://localhost:3000/events/${id}?email=${user.email}`,
+          `https://ph-a10-eventhub.vercel.app/events/${id}?email=${user.email}`,
           {
             method: "DELETE",
             headers: {

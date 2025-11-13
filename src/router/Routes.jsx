@@ -12,6 +12,7 @@ import EventDetails from "../pages/EventDetails/EventDetails";
 import JoinedEvents from "../pages/JoinedEvents/JoinedEvents";
 import EventUpdate from "../pages/EventUpdate/EventUpdate";
 import PrivateRoute from "./PrivateRoute";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 export default function Routes() {
@@ -19,6 +20,7 @@ export default function Routes() {
     {
         path: '/',
         element: <MainLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 index: true,
@@ -35,7 +37,7 @@ export default function Routes() {
             {
                 path: '/upcoming-events',
                 element: <UpComingEvents />,
-                loader: () => fetch('http://localhost:3000/events')
+                loader: () => fetch('https://ph-a10-eventhub.vercel.app/events')
             },
             {
                 path: '/create-event',
@@ -52,7 +54,7 @@ export default function Routes() {
             {
                 path: '/event-details/:id',
                 element: <EventDetails />,
-                loader: ({params}) => fetch(`http://localhost:3000/events/${params.id}`)
+                loader: ({params}) => fetch(`https://ph-a10-eventhub.vercel.app/events/${params.id}`)
             },
             {
                 path: '/event-update/:id',

@@ -32,7 +32,7 @@ export default function UpComingEvents() {
       }
 
       const res = await fetch(
-        `http://localhost:3000/events?${params.toString()}`
+        `https://ph-a10-eventhub.vercel.app/events?${params.toString()}`
       );
       if (!res.ok) {
         const errorData = await res.json();

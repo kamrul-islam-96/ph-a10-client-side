@@ -26,7 +26,7 @@ export default function EventDetailsCard({ eventDetail }) {
     try {
       const token = await user.getIdToken();
       const joinedRes = await fetch(
-        `http://localhost:3000/joined-events?userEmail=${user.email}`,
+        `https://ph-a10-eventhub.vercel.app/joined-events?userEmail=${user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export default function EventDetailsCard({ eventDetail }) {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/joined-events", {
+      const response = await fetch("https://ph-a10-eventhub.vercel.app/joined-events", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
