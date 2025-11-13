@@ -190,11 +190,18 @@ const Navbar = () => {
                     Create Event
                   </NavLink>
                   <NavLink
-                    to="manage-events"
+                    to="/manage-event"
                     className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-white"
                   >
                     <FaCog className="w-4 h-4 mr-2" />
                     Manage Events
+                  </NavLink>
+                  <NavLink
+                    to="/joined-events"
+                    className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 dark:text-white"
+                  >
+                    <FaCog className="w-4 h-4 mr-2" />
+                    Joined Events
                   </NavLink>
                 </div>
 
