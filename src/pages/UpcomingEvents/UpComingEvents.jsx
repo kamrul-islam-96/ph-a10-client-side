@@ -85,7 +85,7 @@ export default function UpComingEvents() {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-center"
+        className="flex flex-col md:flex-row gap-4 mb-8 items-center justify-center md:w-4xl mx-auto"
       >
         <select
           value={selectedEventType}

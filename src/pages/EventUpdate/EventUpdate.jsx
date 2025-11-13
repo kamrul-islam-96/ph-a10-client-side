@@ -1,18 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { useParams, useNavigate } from "react-router";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../context/AuthContext";
 
 const EventUpdate = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState(null);
+  const { user } = use(AuthContext);
 
   useEffect(() => {
-    fetch(`https://ph-a10-eventhub.vercel.app/events/${id}`)
-      .then((res) => res.json())
-      .then((data) => setFormData(data))
-      .catch((err) => console.error(err));
-  }, [id]);
+    const fetchEvent = async () => {
+      try {
+        if (!user) {
+          console.log("User not logged in");
+          return;
+        }
+
+        const token = await user.getIdToken();
+
+        const res = await fetch(
+          `https://ph-a10-eventhub.vercel.app/events/${id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (!res.ok) throw new Error("Failed to fetch event");
+
+        const data = await res.json();
+        setFormData(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchEvent();
+  }, [id, user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
